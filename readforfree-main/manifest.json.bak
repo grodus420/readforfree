@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Read For Free :)",
+  "description": "see title...",
+  "version": "1.0.0",
+  "author": "grodus",
+  "action": {
+    "default_title": "readforfree"
+   },
+   "permissions": ["tabs", "webNavigation"],
+   "host_permissions": ["https://www.sltrib.com/"],
+		
+	
+    "background": {
+      "service_worker": "background.js"
+       
+      }
+      
+    }

@@ -1,0 +1,37 @@
+function runReadFreeScript(){
+  chrome.scripting.executeScript({
+	  target: {tabs},
+      files: ['readfree.js'],
+  },
+  () => {return true;});
+}
+
+async function getCurrentTab(){
+let queryOptions = { active: true, currentWindow: true };
+        let [tab] = await chrome.tabs.query(queryOptions);
+		return tab;
+}
+
+chrome.webNavigation.onCommitted.addListener(function(tab) {
+
+		let tab = getCurrentTab();
+		let url = tab.url;
+        let parsedUrl = url.replace("https://","").replace("http://", "").replace("www.", "");
+        let domain = parsedUrl.slice(0, parsedUrl.indexOf('/') == 1 ? parsedUrl.length : parsedUrl.indexOf('/')).slice(0, parsedUrl.indexOf('?') == -1 ? parsedUrl.length : parsedUrl.indexOf('?'));
+
+		try {
+            if (domain.length < 1 || domain === null || domain ===undefined) {
+               return;
+            } else if (domain == "sltrib.com") {
+              runReadFreeScript();
+              return;
+            }
+        } catch (err) {
+          throw err;
+        }
+      
+    
+ 
+});
+
+ 
